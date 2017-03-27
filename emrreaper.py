@@ -21,8 +21,7 @@ class Cluster:
 
 
 def fetch_clusters(svc):
-    states = ["STARTING", "BOOTSTRAPPING", "RUNNING", "WAITING"]
-    clusters = svc.list_clusters(ClusterStates=states)
+    clusters = svc.list_clusters(ClusterStates=["STARTING", "BOOTSTRAPPING", "RUNNING", "WAITING"])
     return [Cluster.make(c) for c in clusters['Clusters']]
 
 
@@ -32,10 +31,6 @@ def can_reap(svc, cluster):
         return False
 
     return True
-
-
-def reap(svc, cluster):
-    pass
 
 
 @click.command()
